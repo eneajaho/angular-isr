@@ -1,4 +1,4 @@
-# Angular Incremental Static Regeneration [Stackblitz](https://stackblitz.com/edit/node-wnd7rs?file=server.ts)
+# Angular Incremental Static Regeneration [Stackblitz](https://stackblitz.com/edit/node-cvlod6?file=server.ts)
 This project tries to add a way to generate static pages in runtime and also gives an api to invalidate cached pages.
 
 ## How it works?
@@ -53,6 +53,12 @@ But, now we will start a timer, in order to re-generate _(for the moment we just
 On the third request to the same url, if the timer was finished before the third request, the user would be served with a server-rendered page, and that page will be added to the cache. If the timer was not finished, the user would be served with the cached page of the first request. **Coming soon: after the timer is finished the third request would be servered with a cached page, and the user will not wait for the server to render it first.**
 
 - Path `/three` after the first request that is server-rendered, the page will be added to cache and the cache will never be deleted automatically as in path `/two`. So after the first request, all the other ones will come from the cache.
+
+## Stackblitz info
+- Open the [link](https://stackblitz.com/edit/node-cvlod6?file=server.ts)
+- Wait until the dependecies are installed and the app is started.
+- Open pages by clicking on the links: one, two, three.
+- After you change the pages, you can see the logs on the console in stackblitz for what's happening.
 
 ## What's next?
 - Add create cache at production build
