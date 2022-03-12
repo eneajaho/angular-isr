@@ -20,7 +20,7 @@ export class AppComponent {
   constructor(private http: HttpClient){}
 
   invalidate(url: string): void {
-    const path = `http://localhost:4200/api/invalidate?secret=MY_TOKEN&urlToInvalidate=${url}&revalidate=true`
+    const path = `http://localhost:4200/api/invalidate?secret=MY_TOKEN&urlToInvalidate=${url}`
     this.http.get(path).pipe(take(1)).subscribe();
   }
 }

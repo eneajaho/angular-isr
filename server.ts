@@ -9,7 +9,7 @@ import { APP_BASE_HREF } from "@angular/common";
 import { existsSync } from "fs";
 import { ServerSsrInMemoryCache } from "./server/server-in-memory-cache";
 
-import { handleInvalidation } from "server/server-helpers";
+import { handleInvalidation } from "server/handle-invalidation";
 import { CacheHandler } from "server/cache-handler";
 import { ServerFileSystemCache } from "server/server-filesystem-cache";
 
@@ -23,8 +23,8 @@ export function app(): express.Express {
     ? "index.original.html"
     : "index";
 
-  // const cache: CacheHandler = new ServerSsrInMemoryCache();
-  const cache: CacheHandler = new ServerFileSystemCache(`${distFolder}/cache`);
+  const cache: CacheHandler = new ServerSsrInMemoryCache();
+  // const cache: CacheHandler = new ServerFileSystemCache(`${distFolder}/cache`);
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(
