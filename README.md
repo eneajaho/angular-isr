@@ -46,16 +46,16 @@ const routes: Routes = [
 ];
 ```
 
-- Path `/one` won't be cached at all, and everytime it is requested it will be server-rendered and then will be server to the user.
+- Path `/one` won't be cached at all, and everytime it is requested it will be server-rendered and then will be served to the user.
 
 - Path `/two` on the first request will be server-rendered and then will be cached. On the second request to it, the user will be served the cache that we got on the first request.
 But, now we will start a timer, in order to re-generate _(for the moment we just delete the cache)_ the cache after `5` seconds.
-On the third request to the same url, if the timer was finished before the third request, the user would be served with a server-rendered page, and that page will be added to cache. If the timer was not finished, the user would be served with cache of the first request. **Coming soon: after the timer is finished the third request would be servered with a cached page, and the user will not wait for the server to server-render it.**
+On the third request to the same url, if the timer was finished before the third request, the user would be served with a server-rendered page, and that page will be added to the cache. If the timer was not finished, the user would be served with the cached page of the first request. **Coming soon: after the timer is finished the third request would be servered with a cached page, and the user will not wait for the server to render it first.**
 
-- Path `/three` after the first request that is server-rendered, the page will be added to cache and the cache will never be deleted automatically as in path `/two`. So after the first request, all the other ones will come from cache.
+- Path `/three` after the first request that is server-rendered, the page will be added to cache and the cache will never be deleted automatically as in path `/two`. So after the first request, all the other ones will come from the cache.
 
 ## What's next?
 - Add create cache at production build
-- Regenrate page cache after it is deleted in revalidation
+- Regenerate page cache after it is deleted in revalidation
 - Add Redis implementation to handle cache
-- Add an api to invalidate multiple pages at once (using post request with urls in body)
+- Add an api to invalidate (regenerate) multiple pages at once (using post request with urls in body)

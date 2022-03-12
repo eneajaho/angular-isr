@@ -63,7 +63,7 @@ export function app(): express.Express {
         const cacheData = await cache.get(req.url);
         const { html, options, createdAt } = cacheData;
 
-        const lastCacheDateDiff = (Date.now() - createdAt) / 1000; // in seconds
+        // const lastCacheDateDiff = (Date.now() - createdAt) / 1000; // in seconds
         if (options.revalidate && options.revalidate > 0) {
           cacheRegeneration.addToQueue(req.url, cacheData)
         }

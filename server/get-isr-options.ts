@@ -20,7 +20,5 @@ export function getISROptions(html: string): {
     .substring(0, indexOfCloseScriptTag) // remove close script tag
     .replace(isrScriptTag, "") // remove start script tag
 
-    console.log(JSON.parse(val))
-
   return JSON.parse(val);
 }
