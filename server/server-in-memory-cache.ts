@@ -1,20 +1,24 @@
-import { CacheHandler } from "./cache-handler";
+import { CacheData, CacheHandler, PageCacheOptions } from "./cache-handler";
 
 export class ServerSsrInMemoryCache implements CacheHandler {
-  private cache = new Map<string, string>();
+  private cache = new Map<string, CacheData>();
 
-  add(url: string, html: string): Promise<void> {
+  add(url: string, html: string, options: PageCacheOptions = { revalidate: null }): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.cache.set(url, html);
+      const cacheData: CacheData = {
+        html,
+        options,
+        createdAt: Date.now()
+      };
+      this.cache.set(url, cacheData);
       resolve();
     })
   }
 
-  get(url: string): Promise<string> {
+  get(url: string): Promise<CacheData> {
     return new Promise((resolve, reject) => {
       if(this.cache.has(url)) {
-        const html = this.cache.get(url)!;
-        resolve(html);
+        resolve(this.cache.get(url)!);
       }
       reject('This url does not exist in cache!');
     })

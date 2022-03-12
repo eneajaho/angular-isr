@@ -1,3 +1,4 @@
+import { ISRService } from './isr.service';
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { take } from "rxjs";
@@ -17,7 +18,7 @@ import { take } from "rxjs";
   `
 })
 export class AppComponent {
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private isrService: ISRService){}
 
   invalidate(url: string): void {
     const path = `http://localhost:4200/api/invalidate?secret=MY_TOKEN&urlToInvalidate=${url}`

@@ -1,4 +1,4 @@
-import { CacheHandler } from "./cache-handler";
+import { CacheData, CacheHandler } from "./cache-handler";
 import * as fs from "fs";
 import { join } from "path";
 
@@ -28,11 +28,12 @@ export class ServerFileSystemCache implements CacheHandler {
     });
   }
 
-  get(url: string): Promise<string> {
+  get(url: string): Promise<CacheData> {
     return new Promise(async (resolve, reject) => {
       if (this.cachedUrls.includes(url)) {
         const data = await this.readFromFile(url);
-        resolve(data);
+        // resolve();
+        // TODO: fix this
       }
       reject("This url does not exist in cache!");
     });
