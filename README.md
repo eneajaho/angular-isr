@@ -2,22 +2,21 @@
 This project tries to add a way to generate static pages in runtime and also gives an api to invalidate cached pages.
 
 ## How it works?
+
+- [Explanation video](https://vimeo.com/687530247) (w/o voice)
+
 The first time a user opens a pages, we server-side render that page, and save its result in cache.
 
 Next time when a user requests the same page he will be served the first cached response.
 
 If we want to invalidate the cache for a specific page we need to do a get request like this:
 ```bash
-curl /api/invalidate?secret=<token-here>&urlToInvalidate=<url-here>
-```
-Example:
-```bash
 curl /api/invalidate?secret=MY_TOKEN&urlToInvalidate=/one
 ```
 
 **CacheHandler** has two implementations:
 - InMemory Cache
-- FileSystem Cache (for the moment is in broken state)
+- FileSystem Cache (for the moment its in broken state)
 
 ## How to use it?
 To handle Incremental Static Regeneration, we need to configure it from our route data.
