@@ -1,33 +1,43 @@
 import { CacheHandler } from "server/cache-handler";
 import { CacheData } from "./cache-handler";
+import { renderUrl } from "./render-url";
 
 export class CacheRegeneration {
-  private urlsThatHaveRegenerationLoading: string[] = [];
+  private urlsOnHold: string[] = []; // urls that have regeneration loading
 
   constructor(public cache: CacheHandler) {}
 
-  addToQueue(url: string, cacheData: CacheData): void {
-    if (this.urlsThatHaveRegenerationLoading.includes(url)) {
-      console.log("Another regeneration for this page is on-going, so returning.");
+  regenerate(
+    url: string,
+    req: any,
+    res: any,
+    indexHtml: string,
+    cacheData: CacheData
+  ): void {
+    if (this.urlsOnHold.includes(url)) {
+      console.log("Another regeneration is on-going...");
       return;
     }
 
     const { options } = cacheData;
+    const { revalidate } = options;
 
     console.log(
-      "Added timeout, and after: " +
-        options.revalidate +
-        " seconds, we will re-generate this page: " + url
+      `The url: ${url} will be regenerated after ${revalidate} s.`
     );
 
-    this.urlsThatHaveRegenerationLoading.push(url);
+    this.urlsOnHold.push(url);
 
     setTimeout(() => {
-      console.log("I'm deleting the cache for: ", url);
-      this.cache.delete(url).then(() => {
-        this.urlsThatHaveRegenerationLoading =
-          this.urlsThatHaveRegenerationLoading.filter((x) => x !== url);
+      // re-render the page again
+      renderUrl(url, req, res, indexHtml).then((html) => {
+        // add the regenerated page to cache
+        this.cache.add(req.url, html, { revalidate }).then(() => {
+          // remove url from urlsOnHold
+          this.urlsOnHold = this.urlsOnHold.filter((x) => x !== url);
+          console.log("Url: " + url + " was regenerated!");
+        });
       });
-    }, options.revalidate! * 1000);
+    }, revalidate! * 1000);
   }
 }
