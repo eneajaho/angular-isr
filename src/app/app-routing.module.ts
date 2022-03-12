@@ -12,16 +12,12 @@ const routes: Routes = [
   {
     path: "two",
     component: PageTwoComponent,
-    data: {
-      revalidate: 5,
-    },
+    data: { revalidate: 5 },
   },
   {
     path: "three",
     component: PageThreeComponent,
-    data: {
-      revalidate: 0,
-    },
+    data: { revalidate: 0 },
   },
 ];
 

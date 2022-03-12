@@ -58,6 +58,7 @@ On the third request to the same url, if the timer was finished before the third
 - Open the [link](https://stackblitz.com/edit/node-cvlod6?file=server.ts)
 - Wait until the dependecies are installed and the app is started.
 - Open pages by clicking on the links: one, two, three.
+- Check the time on each page, page one will change on every refresh, page two will change every 5 seconds, page three will only show the cache after the first refresh
 - After you change the pages, you can see the logs on the console in stackblitz for what's happening.
 
 ## What's next?
